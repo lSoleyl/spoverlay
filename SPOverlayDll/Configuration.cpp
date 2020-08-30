@@ -1,3 +1,3 @@
 #include "stdafx.h"
 
-#include <Configuration.h>
+#include <Configuration.hpp>

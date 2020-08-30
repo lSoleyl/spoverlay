@@ -1,6 +1,6 @@
 #include "stdafx.h"
 
-#include <Handle.h>
+#include <Handle.hpp>
 
 Handle::Handle() noexcept : handle(INVALID_HANDLE_VALUE) {}
 Handle::Handle(HANDLE handle) noexcept : handle(handle) {}

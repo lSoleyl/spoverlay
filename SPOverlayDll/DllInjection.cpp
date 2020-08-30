@@ -1,14 +1,14 @@
 #include "stdafx.h"
 
-#include <Handle.h>
-#include <DllInjection.h>
+#include <Handle.hpp>
+#include <DllInjection.hpp>
 
-#include <utility/scope.h>
+#include <utility/scope.hpp>
 
 #include <Psapi.h>
 #include <TlHelp32.h>
 
-bool DllInjection::perform(HANDLE targetProcess, const std::wstring& pathToDll) {
+bool DllInjection::Perform(HANDLE targetProcess, const std::wstring& pathToDll) {
   // Try to allocate memory in target process to write the dll path there
   auto pathBytes = (pathToDll.size() + 1) * sizeof(wchar_t);
   if (auto pathAddr = VirtualAllocEx(targetProcess, nullptr, pathBytes, MEM_RESERVE | MEM_COMMIT, PAGE_READWRITE)) {
@@ -36,7 +36,7 @@ bool DllInjection::perform(HANDLE targetProcess, const std::wstring& pathToDll) 
   return false;
 }
 
-std::wstring DllInjection::dllPath() {
+std::wstring DllInjection::DllPath() {
   wchar_t pathBuffer[512] = { 0 }; // though MAX_PATH is 260
   GetModuleFileNameW(THIS_DLL, pathBuffer, sizeof(pathBuffer) / sizeof(wchar_t));
   return std::wstring(pathBuffer);

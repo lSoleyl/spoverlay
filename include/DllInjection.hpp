@@ -10,13 +10,13 @@ public:
    *
    * @return true upon success
    */
-  static bool perform(HANDLE targetProcess, const std::wstring& pathToDll);
+  static bool Perform(HANDLE targetProcess, const std::wstring& pathToDll);
   //TODO: Maybe establish a communication channel upon success...
 
 
   /** Returns the path to this dll
    */
-  static std::wstring dllPath();
+  static std::wstring DllPath();
 
 private:
 

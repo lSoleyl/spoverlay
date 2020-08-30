@@ -1,5 +1,8 @@
 #include "stdafx.h"
 
+#include <Process.hpp>
+
+#include <iostream>
 #include <thread>
 
 HMODULE THIS_DLL = nullptr;
@@ -14,13 +17,19 @@ BOOL WINAPI DllMain(
     case DLL_PROCESS_ATTACH:
       THIS_DLL = hinstDLL;
 
-//      MessageBoxA(NULL, "Dll-Loaded", "INFO", MB_ICONINFORMATION);
-      if (AllocConsole()) {
-        FILE* fDummy;
-        freopen_s(&fDummy, "CONIN$", "r", stdin);
-        freopen_s(&fDummy, "CONOUT$", "w", stderr);
-        freopen_s(&fDummy, "CONOUT$", "w", stdout);
-        printf("Injection successful :)");
+
+      if (!Process::IsInjectorProcess()) {
+        // We are inside our target process...
+
+        if (AllocConsole()) {
+          FILE* fDummy;
+          freopen_s(&fDummy, "CONIN$", "r", stdin);
+          freopen_s(&fDummy, "CONOUT$", "w", stderr);
+          freopen_s(&fDummy, "CONOUT$", "w", stdout);
+        }
+
+
+        std::cout << "soundpad_overlay.dll successfully injected into target process!" << std::endl;
       }
 
      // Initialize once for each new process.
